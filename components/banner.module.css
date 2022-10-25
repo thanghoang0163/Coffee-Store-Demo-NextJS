@@ -1,0 +1,47 @@
+.container {
+  margin-bottom: 6rem;
+}
+
+.title {
+  letter-spacing: -0.025em;
+  font-weight: 800;
+  color: var(--text-black);
+  font-size: 5rem;
+  line-height: 1;
+  margin-bottom: 2rem;
+}
+
+.title1 {
+  color: rgba(249, 250, 251, 1);
+}
+
+.title2 {
+  color: var(--text-purple);
+}
+
+.subTitle {
+  margin-top: 0.75rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  color: var(--text-white-100);
+}
+
+.buttonWrapper {
+  margin-top: 1.25rem;
+}
+
+.button {
+  background-color: var(--text-purple-dark);
+  cursor: pointer;
+  color: white;
+  outline: 0;
+  border: 0;
+  border-radius: 10px;
+  padding: 1rem 2.5rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.button:hover {
+  background-color: var(--text-purple-dark);
+}
