@@ -6,10 +6,8 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <link
-            rel="preload"
-            href="/fonts/Poppins-Regular.ttf"
-            as="font"
-            crossOrigin="anonymous"
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap"
+            rel="stylesheet"
           />
         </Head>
         <Main />

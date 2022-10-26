@@ -43,5 +43,5 @@
 }
 
 .button:hover {
-  background-color: var(--text-purple-dark);
+  background-color: rgb(65, 59, 194);
 }
