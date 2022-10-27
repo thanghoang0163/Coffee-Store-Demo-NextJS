@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "coffee_stores",
+  "info": {
+    "singularName": "coffee-store",
+    "pluralName": "coffee-stores",
+    "displayName": "Coffee Stores",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "websiteUrl": {
+      "type": "string",
+      "required": true
+    },
+    "address": {
+      "type": "text",
+      "required": true
+    },
+    "star": {
+      "type": "integer",
+      "required": true
+    },
+    "uid": {
+      "type": "uid",
+      "required": true
+    },
+    "neighbourhood": {
+      "type": "text"
+    },
+    "imgUrl": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

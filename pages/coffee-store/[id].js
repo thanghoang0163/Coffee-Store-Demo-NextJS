@@ -2,25 +2,29 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { CoffeeStores } from "../../data/coffee-stores";
 import cls from "classnames";
 
 import styles from "./[id].module.css";
 
-export function getStaticProps(staticProps) {
+export async function getStaticProps(staticProps) {
   const params = staticProps.params;
+
+  const res = await fetch("http://localhost:1337/api/coffee-stores");
+  const CoffeeStores = await res.json();
 
   return {
     props: {
-      CoffeeStore: CoffeeStores.find(
+      CoffeeStore: CoffeeStores.data.find(
         (item) => item.id.toString() === params.id
       ),
     },
   };
 }
 
-export function getStaticPaths() {
-  const paths = CoffeeStores.map((item) => {
+export async function getStaticPaths() {
+  const res = await fetch("http://localhost:1337/api/coffee-stores");
+  const CoffeeStores = await res.json();
+  const paths = CoffeeStores.data.map((item) => {
     return { params: { id: item.id.toString() } };
   });
   return {
@@ -32,8 +36,8 @@ export function getStaticPaths() {
 export default function CoffeeStore({ CoffeeStore }) {
   const router = useRouter();
 
-  const { address, id, imgUrl, name, websiteUrl, neighbourhood, star } =
-    CoffeeStore;
+  const { address, imgUrl, name, websiteUrl, neighbourhood, star } =
+    CoffeeStore.attributes;
 
   if (router.isFallback) {
     return <div>Loading...</div>;
@@ -46,11 +50,7 @@ export default function CoffeeStore({ CoffeeStore }) {
     setUpVote((prevState) => prevState + 1);
   };
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  useEffect(() => {
-    Object.assign(CoffeeStore, { star: upVote });
-    console.log(star);
-  });
+  const data = Object.assign(CoffeeStore.attributes, { star: upVote });
 
   return (
     <div className={styles.container}>
@@ -59,13 +59,18 @@ export default function CoffeeStore({ CoffeeStore }) {
           <a className={styles.link}>← Back to home</a>
         </Link>
         <h2 className={styles.name}>{name}</h2>
-        <Image
-          className={styles.img}
-          src={imgUrl}
-          alt=""
-          width={600}
-          height={350}
-        />
+        <Link href={websiteUrl} passHref>
+          <a>
+            <Image
+              className={styles.img}
+              src={imgUrl}
+              alt=""
+              width={600}
+              height={350}
+              priority
+            />
+          </a>
+        </Link>
       </div>
       <div className={cls(styles.content, "glass")}>
         <div className={styles.address}>
@@ -100,7 +105,7 @@ export default function CoffeeStore({ CoffeeStore }) {
             width={25}
             height={25}
           />
-          <span className={styles.starText}>{star}</span>
+          <span className={styles.starText}>{data.star}</span>
         </div>
         <button className={styles.button} onClick={handleUpVote}>
           Up vote!

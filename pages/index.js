@@ -5,9 +5,20 @@ import styles from "../styles/Home.module.css";
 
 import Banner from "../components/banner";
 import Card from "../components/card";
-import { CoffeeStores } from "../data/coffee-stores";
+import { useEffect } from "react";
 
-export default function Home() {
+export async function getStaticProps() {
+  const res = await fetch("http://localhost:1337/api/coffee-stores");
+  const CoffeeStores = await res.json();
+
+  return {
+    props: {
+      CoffeeStores,
+    },
+  };
+}
+
+export default function Home({ CoffeeStores }) {
   const handleOnBannerBtnClick = () => {
     console.log("first");
   };
@@ -26,12 +37,12 @@ export default function Home() {
           handleOnClick={handleOnBannerBtnClick}
         />
         <div className={styles.cardLayout}>
-          {CoffeeStores.map((item) => {
+          {CoffeeStores.data.map((item) => {
             return (
               <Card
                 key={item.id}
-                name={item.name}
-                imgUrl={item.imgUrl}
+                name={item.attributes.name}
+                imgUrl={item.attributes.imgUrl}
                 href={`/coffee-store/${item.id}`}
               />
             );
