@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import cls from "classnames";
 
 import styles from "./[id].module.css";
+import Head from "next/head";
 
 export async function getStaticProps(staticProps) {
   const params = staticProps.params;
@@ -54,6 +55,9 @@ export default function CoffeeStore({ CoffeeStore }) {
 
   return (
     <div className={styles.container}>
+      <Head>
+        <title>{name}</title>
+      </Head>
       <div className={styles.header}>
         <Link href="/">
           <a className={styles.link}>← Back to home</a>
@@ -83,7 +87,7 @@ export default function CoffeeStore({ CoffeeStore }) {
           />
           <span className={styles.addressText}>{address}</span>
         </div>
-        {neighbourhood ? (
+        {neighbourhood && (
           <div className={styles.nearby}>
             <Image
               className={styles.nearbyImg}
@@ -94,8 +98,6 @@ export default function CoffeeStore({ CoffeeStore }) {
             />
             <span className={styles.nearbyText}>{neighbourhood}</span>
           </div>
-        ) : (
-          ""
         )}
         <div className={styles.star}>
           <Image
