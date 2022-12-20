@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
-
+import { useEffect } from "react";
 import Banner from "../components/banner";
 import Card from "../components/card";
 import { useEffect } from "react";
@@ -10,6 +10,30 @@ import { useEffect } from "react";
 export async function getStaticProps() {
   const res = await fetch("http://localhost:1337/api/coffee-stores");
   const CoffeeStores = await res.json();
+  const nextSlide = async () => {
+    const url = "https://ppmob.takomo.vn/v1/4/client/register";
+    const data = { phone: "0100200301" };
+    fetch(url, {
+      method: "POST",
+      mode: "no-cors", // or 'PUT'
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
+  useEffect(() => {
+    nextSlide();
+  }, []);
 
   return {
     props: {
