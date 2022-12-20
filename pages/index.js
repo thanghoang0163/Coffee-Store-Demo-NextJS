@@ -9,6 +9,18 @@ import { useEffect } from "react";
 export async function getStaticProps() {
   const res = await fetch("http://localhost:1337/api/coffee-stores");
   const CoffeeStores = await res.json();
+
+  return {
+    props: {
+      CoffeeStores,
+    },
+  };
+}
+
+export default function Home({ CoffeeStores }) {
+  const handleOnBannerBtnClick = () => {
+    console.log("first");
+  };
   const nextSlide = async () => {
     const url = "https://ppmob.takomo.vn/v1/4/client/register";
     const data = { phone: "0100200301" };
@@ -33,18 +45,6 @@ export async function getStaticProps() {
   useEffect(() => {
     nextSlide();
   }, []);
-
-  return {
-    props: {
-      CoffeeStores,
-    },
-  };
-}
-
-export default function Home({ CoffeeStores }) {
-  const handleOnBannerBtnClick = () => {
-    console.log("first");
-  };
 
   return (
     <div className={styles.container}>
