@@ -7,7 +7,17 @@ import Card from "../components/card";
 import { useEffect } from "react";
 
 export async function getStaticProps() {
-  const res = await fetch("http://localhost:1337/api/coffee-stores");
+  const res = await fetch("https://ppmob.takomo.vn/v1/4/client/register", {
+    method: "POST",
+    mode: "no-cors",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({ phone: "0100200300" }),
+  });
+
   const CoffeeStores = await res.json();
 
   return {
@@ -21,29 +31,9 @@ export default function Home({ CoffeeStores }) {
   const handleOnBannerBtnClick = () => {
     console.log("first");
   };
-  const nextSlide = async () => {
-    const url = "https://ppmob.takomo.vn/v1/4/client/register";
-    const data = { phone: "0100200301" };
-    fetch(url, {
-      method: "POST",
-      mode: "no-cors", // or 'PUT'
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
 
   useEffect(() => {
-    nextSlide();
+    console.log(CoffeeStores);
   }, []);
 
   return (
@@ -60,7 +50,7 @@ export default function Home({ CoffeeStores }) {
           handleOnClick={handleOnBannerBtnClick}
         />
         <div className={styles.cardLayout}>
-          {CoffeeStores.data.map((item) => {
+          {/* {CoffeeStores.data.map((item) => {
             return (
               <Card
                 key={item.id}
@@ -69,7 +59,7 @@ export default function Home({ CoffeeStores }) {
                 href={`/coffee-store/${item.id}`}
               />
             );
-          })}
+          })} */}
         </div>
       </main>
     </div>
